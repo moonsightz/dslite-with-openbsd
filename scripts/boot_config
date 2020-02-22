@@ -1,0 +1,9 @@
+sh /root/WAN0_ipv6privacy.sh
+ifconfig gif0 create
+# XXXX:XXXX is gw.transix.jp's address.
+# Ref. https://www.mfeed.ad.jp/transix/dslite/yamaha.html
+ifconfig gif0 inet6 tunnel `cat /tmp/WAN0_ipv6privacy` XXXX:XXXX prefixlen 128
+ifconfig gif0 mtu 1500
+ifconfig gif0 inet alias 192.0.0.2 192.0.0.1 prefixlen 30
+ifconfig gif0 up
+route add default 192.0.0.1
