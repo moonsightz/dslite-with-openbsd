@@ -2,7 +2,7 @@
 
 [English version](README.md)
 
-OpenBSD 6.6 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
+OpenBSD 6.6/6.7 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
 
 
 ## Reference
