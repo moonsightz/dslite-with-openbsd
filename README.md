@@ -16,19 +16,19 @@ An interface on WAN is `WAN0`, an interface on LAN is `LAN1`.  Please replace th
 ## Files
 
 - [scripts/boot_config](scripts/boot_config) : commands to set tunnel interface on boot
-- [scripts/WAN0_ipv6privacy.sh](scripts/WAN0_ipv6privacy.sh) : A script to get and write IPv6 temporary(6.9)/autoconfprivacy(~6.8) address of WAN0.
+- [scripts/WAN0_ipv6privacy.sh](scripts/WAN0_ipv6privacy.sh) : A script to get and write IPv6 temporary(6.9~)/autoconfprivacy(~6.8) address of WAN0.
 - [scripts/gwi_address.sh](scripts/gwi_address.sh) : A script to change tunnel config when IPv6 address is changed.
 
 ## Config
 As far as I checked, There is no ND proxy for OpenBSD (yet).  If you want to use IPv6 from client, IPv6-IPv6 NAT must be configured and `net.inet6.ip6.forwarding=1` must be set in sysctl.conf.
 
-WAN0 interface must be setup with `inet6 autoconf temporary`(6.9)/`inet6 autoconf autoconfprivacy`(~6.8)
+WAN0 interface must be setup with `inet6 autoconf temporary`(6.9~)/`inet6 autoconf autoconfprivacy`(~6.8)
 
 It is not need to change config of LAN1 interface (IPv4 router).  If you need, configure IPv6 address and rad(8).  MTU/MSS must be `1454`/`1414` if you use DS-Lite with PPPoE.  If only DS-Lite, `MTU 1460`/`MSS 1420`.
 
-[scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot (by rc.local or etc.)
+[scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot.  rc.local is used to add local boot sequence, but daemons launched before rc.local like unbound may say warings about no connection to the internet.  To suppress, the script must be executed just before those deamons by modifying /etc/rc.
 
-IPv6 address configured with temporary(6.9)/autoconfprivacy(~6.8) is invalidated in some period.  [scripts/gwi_address.sh](scripts/gwi_address.sh) must be executed in proper period to use newly assigned IPv6 address.
+IPv6 address configured with temporary(6.9~)/autoconfprivacy(~6.8) is invalidated in some period.  [scripts/gwi_address.sh](scripts/gwi_address.sh) must be executed in proper period to use newly assigned IPv6 address.
 
 MSS of tunnel interface must be set in pf.conf like `match on gif0 scrub (random-id max-mss 1414)`.  If you use IPv6-IPv6 NAT, its configuration must be set in pf.conf.
 
