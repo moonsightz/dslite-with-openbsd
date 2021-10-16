@@ -3,7 +3,7 @@
 [Japanese version](README_ja.md)
 
 In Japan, DS-Lite(RFC6333) is used for IPv4 over IPv6.
-This is a memo of DS-Lite config with OpenBSD 6.7/6.8/6.9 router.
+This is a memo of DS-Lite config with OpenBSD 6.8/6.9/7.0 router.
 
 ## Reference
 - https://techlog.iij.ad.jp/contents/dslite-macosx (In Japanese)
