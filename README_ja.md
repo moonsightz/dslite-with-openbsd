@@ -27,7 +27,7 @@ WAN0 は `inet6 autoconf temporary`(6.9~)/`inet6 autoconf autoconfprivacy`(~6.8)
 LAN1 は IPv4 ルーターのままの設定で、必要があれば IPv6 address 設定してアドレスを rad(8) で配ります。
 PPPoE と併用するのであれば、`MTU 1454`/`MSS 1414` になります。DS-Lite のみであれば `MTU 1460`/`MSS 1420` になります。
 
-[scripts/boot_config](scripts/boot_config) は起動時に tunnel interface の設定をするので、起動時に実行されるようにしして下さい。rc.local がブートシーケンスの最後に追加する為に使われますが、rc.local が実行される前に unbound のような daemon が実行されるので、ネットに接続されてない旨の warning が出ることがありますが、これを避けるには /etc/rc に手を入れて、それらの daemon が実行される直前にスクリプトが実行される必要があります。
+[scripts/boot_config](scripts/boot_config) は tunnel interface の設定をするスクリプトで、起動時に実行されるようにしして下さい。rc.local がブートシーケンスの最後に追加する為に使われますが、rc.local が実行される前に unbound のような daemon が実行されるので、ネットに接続されてない旨の warning が出ることがありますが、これを避けるには /etc/rc に手を入れて、それらの daemon が実行される直前にスクリプトが実行される必要があります。
 
 temporary(6.9~)/autoconfprivacy(~6.8) で設定された IPv6 は一定時間で無効になるので、新たな IPv6 address が assign されたらそのアドレスを使うように [scripts/gwi_address.sh](scripts/gwi_address.sh) を cron で適当な間隔で実行されるように設定します。
 
