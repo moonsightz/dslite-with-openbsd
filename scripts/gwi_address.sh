@@ -1,5 +1,4 @@
 #!/bin/sh
-# Note that in OpenBSD 6.9, privacy of ifconfig is renamed to temporary.
 
 # XXXX:XXXX is DS-Lite gateway address.
 # Ref. mfeed(transix) : https://www.mfeed.ad.jp/transix/dslite/yamaha.html 
