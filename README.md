@@ -16,7 +16,7 @@ An interface on WAN is `WAN0`, an interface on LAN is `LAN1`.  Please replace th
 ## Files
 
 - [scripts/boot_config](scripts/boot_config) : commands to set tunnel interface on boot
-- [scripts/WAN0_ipv6privacy.sh](scripts/WAN0_ipv6privacy.sh) : A script to get and write IPv6 temporary(6.9~)/autoconfprivacy(~6.8) address of WAN0.
+- [scripts/WAN0_ipv6privacy.sh](scripts/WAN0_ipv6privacy.sh) : A script to get IPv6 temporary address of WAN0.
 - [scripts/gwi_address.sh](scripts/gwi_address.sh) : A script to change tunnel config when IPv6 address is changed.
 
 ## Config

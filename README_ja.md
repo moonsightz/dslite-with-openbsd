@@ -16,7 +16,7 @@ WAN 側の interface を `WAN0`、LAN 側の interface を `LAN1` と表記し�
 ## Files
 
 - [scripts/boot_config](scripts/boot_config) : 起動時に tunnel を設定するコマンド
-- [scripts/WAN0_ipv6privacy.sh](scripts/WAN0_ipv6privacy.sh) : WAN 側の temporary(6.9~)/autoconfprivacy(~6.8) な IPv6 を取得してファイルに書き出すスクリプト
+- [scripts/WAN0_ipv6privacy.sh](scripts/WAN0_ipv6privacy.sh) : WAN 側の temporary な IPv6 を取得するスクリプト
 - [scripts/gwi_address.sh](scripts/gwi_address.sh) : IPv6 のアドレスが変わったときに tunnel の設定を変えるスクリプト
 
 ## Config
