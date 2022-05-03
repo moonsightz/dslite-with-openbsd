@@ -24,7 +24,7 @@ As far as I checked, There is no ND proxy for OpenBSD (except lite-version nd-re
 
 WAN0 interface must be setup with `inet6 autoconf temporary`.
 
-It is not need to change config of LAN1 interface (IPv4 router).  If you need, configure IPv6 address and rad(8).  MTU/MSS must be `1454`/`1414` if you use DS-Lite with PPPoE.  If only DS-Lite, `MTU 1460`/`MSS 1420`.  Be careful that resolvd sets DNS server of PPPoE to resolv.conf from OpenBSD 7.1.
+It is not need to change config of LAN1 interface (IPv4 router).  If you need IPv6, configure IPv6 address and rad(8).  MTU/MSS must be `1454`/`1414` if you use DS-Lite with PPPoE.  If only DS-Lite, `MTU 1460`/`MSS 1420`.  Be careful that resolvd sets DNS server of PPPoE to resolv.conf from OpenBSD 7.1.
 
 [scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot.  rc.local is used to add local boot sequence, but daemons launched before rc.local like unbound may say warings about no connection to the internet.  To suppress, the script must be executed just before those deamons by modifying /etc/rc.
 
@@ -35,4 +35,4 @@ MSS of tunnel interface must be set in pf.conf like `match on gif0 scrub (random
 ## FAQ
 Q. Is it OK changing IPv6 address for tunnel when it is being used in connection?
 
-A. I think active TCP connection will be disconnected (I have not experimented).  It may be OK if it is executed at midnight (no usage time)...
+A. I think active TCP connection will be disconnected (I have not experimented).  It may be OK if it is executed at midnight (when not used)...
