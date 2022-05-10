@@ -26,7 +26,7 @@ WAN0 interface must be setup with `inet6 autoconf temporary`.
 
 It is not need to change config of LAN1 interface (IPv4 router).  If you need IPv6, configure IPv6 address and rad(8).  MTU/MSS must be `1454`/`1414` if you use DS-Lite with PPPoE.  If only DS-Lite, `MTU 1460`/`MSS 1420`.  Be careful that resolvd sets DNS server of PPPoE to resolv.conf from OpenBSD 7.1.
 
-[scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot.  rc.local is used to add local boot sequence, but daemons launched before rc.local like unbound may say warings about no connection to the internet.  To suppress, the script must be executed just before those deamons by modifying /etc/rc.
+[scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot.  rc.local is used to add local boot sequence, but daemons launched before rc.local like unbound may warn about no connection to the internet.  To suppress, the script must be executed just before those daemons by modifying /etc/rc.
 
 IPv6 address configured with temporary is invalidated in some period.  [scripts/gwi_address.sh](scripts/gwi_address.sh) must be executed in proper period to use newly assigned IPv6 address.
 
