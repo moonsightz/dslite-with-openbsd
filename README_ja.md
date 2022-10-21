@@ -2,7 +2,7 @@
 
 [English version](README.md)
 
-OpenBSD 7.0/7.1 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
+OpenBSD 7.1/7.2 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
 
 ## Reference
 - [てくろぐ : DS-Lite(RFC6333)をMacOS Xで利用する](https://techlog.iij.ad.jp/contents/dslite-macosx)
