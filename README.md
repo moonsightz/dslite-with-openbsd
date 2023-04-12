@@ -3,7 +3,7 @@
 [Japanese version](README_ja.md)
 
 In Japan, DS-Lite(RFC6333) is used for IPv4 over IPv6.
-This is a memo of DS-Lite config with OpenBSD 7.1/7.2 router.
+This is a memo of DS-Lite config with OpenBSD 7.2/7.3 router.
 
 ## Reference
 - https://techlog.iij.ad.jp/contents/dslite-macosx (In Japanese)
@@ -26,7 +26,7 @@ WAN0 interface must be setup with `inet6 autoconf temporary`.
 
 It is not necessary to change config of LAN1 interface (IPv4 router).  If you need IPv6, configure IPv6 address and rad(8).  MTU/MSS must be `1454`/`1414` if you want to use DS-Lite with PPPoE.  If only DS-Lite, `MTU 1460`/`MSS 1420`.  Note that resolvd sets DNS server of PPPoE to resolv.conf from OpenBSD 7.1.
 
-[scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot.  rc.local is used to add local boot sequence, but daemons started before rc.local, such as unbound, may warn that there is no connection to the Internet.  To suppress this, the script must be executed just before these daemons by modifying /etc/rc.
+[scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot.  rc.local is used to add local command execution at the end of boot sequence, but daemons started before rc.local, such as unbound, may warn that there is no connection to the Internet.  To suppress this, the script must be executed just before these daemons by modifying /etc/rc.
 
 IPv6 address configured with temporary is invalidated in some period.  [scripts/gwi_address.sh](scripts/gwi_address.sh) must be executed in appropriate period to use newly assigned IPv6 address.
 
