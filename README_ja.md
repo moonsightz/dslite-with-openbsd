@@ -2,9 +2,10 @@
 
 [English version](README.md)
 
-OpenBSD 7.3/7.4 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
+OpenBSD 7.4/7.5 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
 
 ## Reference
+- [OpenBSD PF - Building a Router](https://www.openbsd.org/faq/pf/example1.html)
 - [てくろぐ : DS-Lite(RFC6333)をMacOS Xで利用する](https://techlog.iij.ad.jp/contents/dslite-macosx)
 - [OpenBSDでIPv6 IPoEを設定したときのメモ](https://mano.xyz/post/2018-12-02-openbsd-ipv6-ipoe/)
 - [OpenBSD HE IPv6 tunnel](https://xw.is/wiki/OpenBSD_HE_IPv6_tunnel) (IPv6 over IPv4)
@@ -26,13 +27,14 @@ WAN0 は `inet6 autoconf temporary` で設定します。
 
 LAN1 は IPv4 ルーターのままの設定で、必要があれば IPv6 address 設定してアドレスを rad(8) で配ります。
 PPPoE と併用するのであれば、`MTU 1454`/`MSS 1414` になります。DS-Lite のみであれば `MTU 1460`/`MSS 1420` になります。
+
+`pf.conf` に tunnel interface の MSS を `match on gif0 scrub (random-id max-mss 1414)` のように設定します。また、IPv6-IPv6 NAT を使うのであればその設定も必要です。
+
 OpenBSD 7.1 から resolvd が PPPoE の DNS server の情報を resolv.conf に設定するようになっているので、注意して下さい。
 
-[scripts/boot_config](scripts/boot_config) は tunnel interface の設定をするスクリプトで、起動時に実行されるようにしして下さい。rc.local はブートシーケンスの最後に任意のコマンドを追加する為に使われますが、rc.local が実行される前に unbound のような daemon が実行されるので、ネットに接続されてない旨の warning が出ることがありますが、これを避けるには /etc/rc に手を入れて、それらの daemon が実行される直前にスクリプトが実行される必要があります。
+[scripts/boot_config](scripts/boot_config) は tunnel interface の設定をするスクリプトで、起動時に実行されるようにしして下さい。rc.local はブートシーケンスの最後に任意のコマンドを追加する為に使われますが、rc.local が実行される前に unbound のような daemon が実行されるので、ネットに接続されてない旨の warning が出ることがありますが、これを避けるには `/etc/rc` に手を入れて、それらの daemon が実行される直前にスクリプトが実行される必要があります。
 
-temporary で設定された IPv6 は一定時間で無効になるので、新たな IPv6 address が assign されたらそのアドレスを使うように [scripts/gwi_address.sh](scripts/gwi_address.sh) を cron で適当な間隔で実行されるように設定します。
-
-pf.conf に tunnel interface の MSS を `match on gif0 scrub (random-id max-mss 1414)` のように設定します。また、IPv6-IPv6 NAT を使うのであればその設定も必要です。
+`temporary` で設定された IPv6 は一定時間で無効になるので、新たな IPv6 address が assign されたらそのアドレスを使うように [scripts/gwi_address.sh](scripts/gwi_address.sh) を cron で適当な間隔で実行されるように設定します。
 
 ## FAQ
 Q. 通信している最中に gwi_address.sh で tunnel に使う IPv6 アドレス切り替えたらまずくない？
