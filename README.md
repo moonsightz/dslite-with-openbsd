@@ -3,13 +3,13 @@
 [Japanese version](README_ja.md)
 
 In Japan, DS-Lite(RFC6333) is used for IPv4 over IPv6.
-This is a memo of DS-Lite config with OpenBSD 7.5/7.6 router.
+This is a memo of DS-Lite config with OpenBSD 7.6/7.7 router.
 
 ## Reference
-- https://www.openbsd.org/faq/pf/example1.html (OpenBSD PF router guide)
-- https://techlog.iij.ad.jp/contents/dslite-macosx (In Japanese)
-- https://mano.xyz/post/2018-12-02-openbsd-ipv6-ipoe/ (In Japanese)
-- https://xw.is/wiki/OpenBSD_HE_IPv6_tunnel (IPv6 over IPv4)
+- OpenBSD PF - Building a Router : https://www.openbsd.org/faq/pf/example1.html
+- DS-Lite on MacOS X  (In Japanese) : https://techlog.iij.ad.jp/contents/dslite-macosx
+- IPv6 IPoE on OpenBSD (In Japanese) : https://mano.xyz/post/2018-12-02-openbsd-ipv6-ipoe/
+- OpenBSD HE IPv6 tunnel (IPv6 over IPv4) : https://xw.is/wiki/OpenBSD_HE_IPv6_tunnel
 
 ## Notation
 An interface on WAN is `WAN0`, an interface on LAN is `LAN1`.  Please replace them with real names of interfaces like `re0`.

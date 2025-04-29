@@ -2,13 +2,13 @@
 
 [English version](README.md)
 
-OpenBSD 7.5/7.6 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
+OpenBSD 7.6/7.7 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
 
 ## Reference
-- [OpenBSD PF - Building a Router](https://www.openbsd.org/faq/pf/example1.html)
-- [てくろぐ : DS-Lite(RFC6333)をMacOS Xで利用する](https://techlog.iij.ad.jp/contents/dslite-macosx)
-- [OpenBSDでIPv6 IPoEを設定したときのメモ](https://mano.xyz/post/2018-12-02-openbsd-ipv6-ipoe/)
-- [OpenBSD HE IPv6 tunnel](https://xw.is/wiki/OpenBSD_HE_IPv6_tunnel) (IPv6 over IPv4)
+- OpenBSD PF - Building a Router : https://www.openbsd.org/faq/pf/example1.html
+- てくろぐ : DS-Lite(RFC6333)をMacOS Xで利用する : https://techlog.iij.ad.jp/contents/dslite-macosx
+- OpenBSDでIPv6 IPoEを設定したときのメモ : https://mano.xyz/post/2018-12-02-openbsd-ipv6-ipoe/
+- OpenBSD HE IPv6 tunnel (IPv6 over IPv4) : https://xw.is/wiki/OpenBSD_HE_IPv6_tunnel
 
 ## Notation
 
