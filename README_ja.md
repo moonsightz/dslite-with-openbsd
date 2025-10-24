@@ -2,7 +2,7 @@
 
 [English version](README.md)
 
-OpenBSD 7.6/7.7 router で DS-Lite を使えるようにする設定（NTT な環境を想定）
+OpenBSD 7.7/7.8 router で DS-Lite を使えるようにする設定のメモ書き（NTT な環境を想定）
 
 ## Reference
 - OpenBSD PF - Building a Router : https://www.openbsd.org/faq/pf/example1.html
