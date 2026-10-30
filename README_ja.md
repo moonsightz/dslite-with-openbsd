@@ -2,7 +2,7 @@
 
 [English version](README.md)
 
-OpenBSD 7.8/7.9 router で DS-Lite を使えるようにする設定のメモ書き（NTT な環境を想定）
+OpenBSD 7.9/8.0 router で DS-Lite を使えるようにする設定のメモ書き（NTT な環境を想定）
 
 ## Reference
 - OpenBSD PF - Building a Router : https://www.openbsd.org/faq/pf/example1.html
@@ -20,16 +20,17 @@ WAN 側の interface を `WAN0`、LAN 側の interface を `LAN1` と表記し�
 - [scripts/gwi_address.sh](scripts/gwi_address.sh) : WAN 側の IPv6 address が変わったときに tunnel の設定を変えるスクリプト
 
 ## Config
-OpenBSD に対応した ND proxy はまだ存在しないようなので（簡易版の nd-reflector https://mano.xyz/post/2021-10-31-openbsd-nd-proxy/ は有）、client から IPv6 で通信するのであれば、IPv6-IPv6 NAT になります。また sysctl.conf で `net.inet6.ip6.forwarding=1` で IPv6 packet の転送を許可します。
+OpenBSD に対応した ND proxy はまだ存在しないようなので（簡易版の nd-reflector https://mano.xyz/post/2021-10-31-openbsd-nd-proxy/ は有）、client から IPv6 で通信するのであれば、IPv6-IPv6 NAT になります。また `sysctl.conf` で `net.inet6.ip6.forwarding=1` で IPv6 packet の転送を許可します。
 
 WAN0 は `inet6 autoconf temporary` で設定します。
 
-LAN1 は IPv4 ルーターのままの設定で、必要があれば IPv6 address 設定してアドレスを rad(8) で配ります。
+LAN1 は MTU 以外は IPv4 ルーターのままの設定で、必要があれば IPv6 address 設定してアドレスを rad(8) で配ります。
 PPPoE と併用するのであれば、`MTU 1454`/`MSS 1414` になります。DS-Lite のみであれば `MTU 1460`/`MSS 1420` になります。
+Client 向けの IPv6 の MTU は `rad.conf` で指定する必要があります（rad(8) に手を入れてインターフェースの MTU をチェックしてその値を使うようにする手も有）。
 
 `pf.conf` に tunnel interface の MSS を `match on gif0 scrub (random-id max-mss 1414)` のように設定します。また、IPv6-IPv6 NAT を使うのであればその設定も必要です。
 
-OpenBSD 7.1 から resolvd が PPPoE の DNS server の情報を resolv.conf に設定するようになっているので、注意して下さい。
+OpenBSD 7.1 から resolvd が PPPoE の DNS server の情報を `resolv.conf` に設定するようになっているので、注意して下さい。
 
 [scripts/boot_config](scripts/boot_config) は tunnel interface の設定をするスクリプトで、起動時に実行されるようにしして下さい。rc.local はブートシーケンスの最後に任意のコマンドを追加する為に使われますが、rc.local が実行される前に unbound のような daemon が実行されるので、ネットに接続されてない旨の warning が出ることがありますが、これを避けるには `/etc/rc` に手を入れて、それらの daemon が実行される直前にスクリプトが実行される必要があります。
 

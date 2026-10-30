@@ -3,7 +3,7 @@
 [Japanese version](README_ja.md)
 
 In Japan, DS-Lite(RFC6333) is used for IPv4 over IPv6.
-This is a memorandum of DS-Lite config with OpenBSD 7.8/7.9 router.
+This is a memorandum of DS-Lite config with OpenBSD 7.9/8.0 router.
 
 ## Reference
 - OpenBSD PF - Building a Router : https://www.openbsd.org/faq/pf/example1.html
@@ -20,15 +20,15 @@ An interface on WAN is `WAN0`, an interface on LAN is `LAN1`.  Please replace th
 - [scripts/gwi_address.sh](scripts/gwi_address.sh) : A script to change tunnel config when IPv6 address is changed.
 
 ## Config
-As far as I have checked, there is no ND proxy for OpenBSD (except lite-version nd-reflector https://mano.xyz/post/2021-10-31-openbsd-nd-proxy/). If you want to use IPv6 from client, IPv6-IPv6 NAT must be configured and `net.inet6.ip6.forwarding=1` must be set in sysctl.conf.
+As far as I have checked, there is no ND proxy for OpenBSD (except lite-version nd-reflector https://mano.xyz/post/2021-10-31-openbsd-nd-proxy/). If you want to use IPv6 from client, IPv6-IPv6 NAT must be configured and `net.inet6.ip6.forwarding=1` must be set in `sysctl.conf`.
 
 WAN0 interface must be setup with `inet6 autoconf temporary`.
 
-It is not necessary to change config of LAN1 interface (IPv4 router).  If you need IPv6, configure IPv6 address and rad(8).  MTU/MSS must be `1454`/`1414` if you want to use DS-Lite with PPPoE.  If only DS-Lite, `MTU 1460`/`MSS 1420`. 
+It is not necessary to change config of LAN1 interface (IPv4 router) except MTU.  If you need IPv6, configure IPv6 address and rad(8).  MTU/MSS must be `1454`/`1414` if you want to use DS-Lite with PPPoE.  If only DS-Lite, `MTU 1460`/`MSS 1420`. MTU of IPv6 which clients use must be set in `rad.conf`, or modify rad(8) to check and use MTU of interfaces.
 
 MSS of tunnel interface must be set in `pf.conf` like `match on gif0 scrub (random-id max-mss 1414)`.  If you will use IPv6-IPv6 NAT, its configuration must be set in `pf.conf`.
 
-Note that resolvd sets DNS server of PPPoE to resolv.conf from OpenBSD 7.1.
+Note that resolvd sets DNS server of PPPoE to `resolv.conf` from OpenBSD 7.1.
 
 [scripts/boot_config](scripts/boot_config) configures a tunnel interface.  It must be executed on boot.  rc.local is used to add local command execution at the end of boot sequence, but daemons started before rc.local, such as unbound, may warn that there is no connection to the Internet.  To suppress this, the script must be executed just before these daemons by modifying `/etc/rc`.
 
